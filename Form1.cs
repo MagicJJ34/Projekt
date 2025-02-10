@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace Projekt
 
 {
@@ -18,14 +20,28 @@ namespace Projekt
 
             if (!File.Exists(filePath))  // Sprawdzenie czy plik istnieje
             {
-                string[] headers = { "Data", "Imiê", "Czynnoœæ", "Wykonane?" + Environment.NewLine }; // Nag³ówek pliku
-                informacje_do_pliku.Items.Add(string.Join("   ", headers)); // Dodanie do Listy zadañ
-                string csvContent = string.Join(",", headers); // £¹czenie elementów tablicy
-                File.WriteAllText(filePath, csvContent); // Zapisanie danych 
+                string[] headers = { "Data", "Imiê", "Czynnoœæ", "Czy Wykonane?" }; // Nag³ówek pliku
+                string csvContent = string.Join(",", headers); // £¹czenie elementów tablicy 
+                File.WriteAllText(filePath, csvContent + Environment.NewLine); // Zapisanie danych 
                 MessageBox.Show("Plik zosta³ utworzony", "Informacja"); // Okienko z informacj¹
+
+                Lista.View = View.Details; // Ustawienie widoku dla Listy
+
+                // Dodanie kolumn do Listy
+                Lista.Columns.Add("Data", 90);
+                Lista.Columns.Add("Imiê", 90);
+                Lista.Columns.Add("Czynnoœæ", 100);
+                Lista.Columns.Add("Wykonane?", 100);
+
+                // Wyrównanie kolumn na œrodek
+                Lista.Columns[0].TextAlign = HorizontalAlignment.Center;
+                Lista.Columns[1].TextAlign = HorizontalAlignment.Center;
+                Lista.Columns[2].TextAlign = HorizontalAlignment.Center;
+                Lista.Columns[3].TextAlign = HorizontalAlignment.Center;
             }
 
             else
+
             {
                 DialogResult pytanie = MessageBox.Show("Plik ju¿ istnieje. Czy chcesz stworzyæ nowy plik?", "Potwierdzenie",
                     MessageBoxButtons.YesNo,
@@ -34,12 +50,27 @@ namespace Projekt
                 if (pytanie == DialogResult.Yes) // Jeœli tak
                 {
                     File.Delete(filePath); // Usuwanie obecnego pliku i wykonanie czynnoœci zwi¹zanych z nowym plikiem
-                    string[] headers = { "Data", "Imiê", "Czynnoœæ", "Czy wykonane?" + Environment.NewLine }; 
-                    informacje_do_pliku.Items.Clear(); // Czyœcimy Liste zadañ 
-                    informacje_do_pliku.Items.Add(string.Join("      ", headers));
-                    string csvContent = string.Join(",", headers);
-                    File.WriteAllText(filePath, csvContent);
-                    MessageBox.Show("Nowy plik zosta³ utworzony", "Informacja");
+                    string[] headers = { "Data", "Imiê", "Czynnoœæ", "Czy Wykonane?" }; // Nag³ówek pliku
+                    Lista.Columns.Clear(); // Usuwamy Nag³ówki
+                    Lista.Items.Clear(); // Czyœcimy Liste zadañ
+                    string csvContent = string.Join(",", headers); // £¹czenie elementów tablicy 
+                    File.WriteAllText(filePath, csvContent + Environment.NewLine); // Zapisanie danych 
+
+                    MessageBox.Show("Plik zosta³ utworzony", "Informacja"); // Okienko z informacj¹
+
+                    Lista.View = View.Details; // Ustawienie widoku dla Listy
+
+                    // Dodanie kolumn do Listy
+                    Lista.Columns.Add("Data", 90);
+                    Lista.Columns.Add("Imiê", 90);
+                    Lista.Columns.Add("Czynnoœæ", 100);
+                    Lista.Columns.Add("Wykonane?", 100);
+
+                    // Wyrównanie kolumn na œrodek
+                    Lista.Columns[0].TextAlign = HorizontalAlignment.Center;
+                    Lista.Columns[1].TextAlign = HorizontalAlignment.Center;
+                    Lista.Columns[2].TextAlign = HorizontalAlignment.Center;
+                    Lista.Columns[3].TextAlign = HorizontalAlignment.Center;
                 }
 
                 else // Jeœli nie
@@ -56,27 +87,33 @@ namespace Projekt
             string czynnosc = Czynnoœæ.Text; // Pobranie czynnoœci
             string czyWykonane = Czy_wykonane.Checked ? "Tak" : "Nie"; // Czy zadanie wykonane?
 
-            string newRow = $"{data}\t{imie}\t{czynnosc}\t{czyWykonane}"; // Utworzenie wiersza
+            // Tworzymy wiersz
+            ListViewItem item = new ListViewItem(data);
+            item.SubItems.Add(imie);
+            item.SubItems.Add(czynnosc);
+            item.SubItems.Add(czyWykonane);
 
-            File.AppendAllText(filePath, newRow + Environment.NewLine); // Dodanie wiersza do pliku
+            Lista.Items.Add(item); // Dodanie wiersza do Listy
 
-            informacje_do_pliku.Items.Add(newRow); // Dodanie wiersza do Listy zadañ
+            string newRow = $"{data},{imie},{czynnosc},{czyWykonane}";
+            File.AppendAllText(filePath, newRow + Environment.NewLine); // Zapisanie do pliku
 
             MessageBox.Show("Zadanie zosta³o dodane do pliku", "Informacja"); // Okienko z informacj¹
         }
 
-        private void usuñ_zadanie_Click(object sender, EventArgs e)
+        private void usuñ_plik_Click(object sender, EventArgs e)
         {
             if (File.Exists(filePath)) // Czy plik istnieje? 
             {
-                DialogResult Pytanie = MessageBox.Show("Czy na pewno chcesz usun¹æ ten plik?", "Potwierdzenie",
+                DialogResult pytanie_2 = MessageBox.Show("Czy na pewno chcesz usun¹æ ten plik?", "Potwierdzenie",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning); // Pytanie czy usuwamy
 
-                if (Pytanie == DialogResult.Yes) // Jeœli tak
+                if (pytanie_2 == DialogResult.Yes) // Jeœli tak
                 {
                     File.Delete(filePath); // Usuwamy plik
-                    informacje_do_pliku.Items.Clear(); // Czyœcimy Liste zadañ
+                    Lista.Columns.Clear(); // Usuwamy Nag³ówki
+                    Lista.Items.Clear(); // Czyœcimy Liste zadañ
                     MessageBox.Show("Plik zosta³ usuniêty", "Informacja"); // Okienko z informacj¹
                 }
 
@@ -95,23 +132,44 @@ namespace Projekt
 
         private void edytuj_zadanie_Click(object sender, EventArgs e)
         {
+            if (Lista.SelectedItems.Count > 0) // Czy zadanie wybrane?
+            {
+                ListViewItem item = Lista.SelectedItems[0]; // Pobranie wybranego zadania
 
+                // Pobranie wartoœci przez kontrolki
+                Data.Value = DateTime.Parse(item.SubItems[0].Text);
+                Imie.Text = item.SubItems[1].Text;
+                Czynnoœæ.Text = item.SubItems[2].Text;
+                Czy_wykonane.Checked = item.SubItems[3].Text == "Tak";
+
+                // Usuniêcie zadania z listy
+                Lista.Items.Remove(item);
+
+            }
+            else
+            {
+                MessageBox.Show("Proszê wybraæ zadanie do edycji", "B³¹d");
+            }
         }
 
         private void wczytaj_plik_Click(object sender, EventArgs e)
         {
 
         }
-
         private void wyjscie_Click(object sender, EventArgs e)
         {
+            DialogResult pytanie_3 = MessageBox.Show("Czy na pewno chcesz wyjœæ?", "Potwierdzenie",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question); // Okienko z pytaniem
 
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
+            if (pytanie_3 == DialogResult.Yes)
+            {
+                Application.Exit();  // Zamkniêcie aplikacji
+            }
         }
     }
 }
+
+
+
     
