@@ -29,11 +29,10 @@
         private void InitializeComponent()
         {
             stwórz_plik = new Button();
-            informacje_do_pliku = new ListBox();
             label1 = new Label();
-            lista_poleceń = new Label();
+            lista_zadań = new Label();
             dodaj_zadanie = new Button();
-            usuń_zadanie = new Button();
+            usuń_plik = new Button();
             edytuj_zadanie = new Button();
             wczytaj_plik = new Button();
             wyjście = new Button();
@@ -45,26 +44,18 @@
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
+            Lista = new ListView();
             SuspendLayout();
             // 
             // stwórz_plik
             // 
-            stwórz_plik.Location = new Point(614, 21);
+            stwórz_plik.Location = new Point(781, 69);
             stwórz_plik.Name = "stwórz_plik";
             stwórz_plik.Size = new Size(140, 62);
             stwórz_plik.TabIndex = 0;
             stwórz_plik.Text = "Stwórz plik";
             stwórz_plik.UseVisualStyleBackColor = true;
             stwórz_plik.Click += stwórz_plik_Click;
-            // 
-            // informacje_do_pliku
-            // 
-            informacje_do_pliku.AllowDrop = true;
-            informacje_do_pliku.FormattingEnabled = true;
-            informacje_do_pliku.Location = new Point(38, 93);
-            informacje_do_pliku.Name = "informacje_do_pliku";
-            informacje_do_pliku.Size = new Size(309, 324);
-            informacje_do_pliku.TabIndex = 6;
             // 
             // label1
             // 
@@ -75,18 +66,18 @@
             label1.TabIndex = 7;
             label1.Text = "WITAMY W PROGRAMIE";
             // 
-            // lista_poleceń
+            // lista_zadań
             // 
-            lista_poleceń.AutoSize = true;
-            lista_poleceń.Location = new Point(38, 58);
-            lista_poleceń.Name = "lista_poleceń";
-            lista_poleceń.Size = new Size(96, 20);
-            lista_poleceń.TabIndex = 8;
-            lista_poleceń.Text = "Lista poleceń";
+            lista_zadań.AutoSize = true;
+            lista_zadań.Location = new Point(38, 58);
+            lista_zadań.Name = "lista_zadań";
+            lista_zadań.Size = new Size(83, 20);
+            lista_zadań.TabIndex = 8;
+            lista_zadań.Text = "Lista zadań";
             // 
             // dodaj_zadanie
             // 
-            dodaj_zadanie.Location = new Point(614, 93);
+            dodaj_zadanie.Location = new Point(781, 137);
             dodaj_zadanie.Name = "dodaj_zadanie";
             dodaj_zadanie.Size = new Size(140, 62);
             dodaj_zadanie.TabIndex = 9;
@@ -94,19 +85,19 @@
             dodaj_zadanie.UseVisualStyleBackColor = true;
             dodaj_zadanie.Click += dodaj_zadanie_Click;
             // 
-            // usuń_zadanie
+            // usuń_plik
             // 
-            usuń_zadanie.Location = new Point(614, 230);
-            usuń_zadanie.Name = "usuń_zadanie";
-            usuń_zadanie.Size = new Size(140, 62);
-            usuń_zadanie.TabIndex = 10;
-            usuń_zadanie.Text = "Usuń zadanie";
-            usuń_zadanie.UseVisualStyleBackColor = true;
-            usuń_zadanie.Click += usuń_zadanie_Click;
+            usuń_plik.Location = new Point(781, 273);
+            usuń_plik.Name = "usuń_plik";
+            usuń_plik.Size = new Size(140, 62);
+            usuń_plik.TabIndex = 10;
+            usuń_plik.Text = "Usuń plik";
+            usuń_plik.UseVisualStyleBackColor = true;
+            usuń_plik.Click += usuń_plik_Click;
             // 
             // edytuj_zadanie
             // 
-            edytuj_zadanie.Location = new Point(614, 162);
+            edytuj_zadanie.Location = new Point(781, 205);
             edytuj_zadanie.Name = "edytuj_zadanie";
             edytuj_zadanie.Size = new Size(140, 62);
             edytuj_zadanie.TabIndex = 11;
@@ -116,7 +107,7 @@
             // 
             // wczytaj_plik
             // 
-            wczytaj_plik.Location = new Point(614, 298);
+            wczytaj_plik.Location = new Point(781, 341);
             wczytaj_plik.Name = "wczytaj_plik";
             wczytaj_plik.Size = new Size(140, 62);
             wczytaj_plik.TabIndex = 12;
@@ -126,7 +117,7 @@
             // 
             // wyjście
             // 
-            wyjście.Location = new Point(614, 366);
+            wyjście.Location = new Point(781, 409);
             wyjście.Name = "wyjście";
             wyjście.Size = new Size(140, 62);
             wyjście.TabIndex = 13;
@@ -137,7 +128,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(378, 105);
+            label3.Location = new Point(509, 105);
             label3.Name = "label3";
             label3.Size = new Size(41, 20);
             label3.TabIndex = 14;
@@ -145,14 +136,14 @@
             // 
             // Imie
             // 
-            Imie.Location = new Point(378, 197);
+            Imie.Location = new Point(512, 195);
             Imie.Name = "Imie";
             Imie.Size = new Size(212, 27);
             Imie.TabIndex = 15;
             // 
             // Czynność
             // 
-            Czynność.Location = new Point(378, 274);
+            Czynność.Location = new Point(512, 273);
             Czynność.Name = "Czynność";
             Czynność.Size = new Size(212, 27);
             Czynność.TabIndex = 16;
@@ -160,7 +151,7 @@
             // Czy_wykonane
             // 
             Czy_wykonane.AutoSize = true;
-            Czy_wykonane.Location = new Point(378, 342);
+            Czy_wykonane.Location = new Point(512, 342);
             Czy_wykonane.Name = "Czy_wykonane";
             Czy_wykonane.Size = new Size(142, 24);
             Czy_wykonane.TabIndex = 17;
@@ -169,16 +160,15 @@
             // 
             // Data
             // 
-            Data.Location = new Point(378, 128);
+            Data.Location = new Point(512, 128);
             Data.Name = "Data";
             Data.Size = new Size(212, 27);
             Data.TabIndex = 18;
-            Data.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(378, 174);
+            label4.Location = new Point(512, 172);
             label4.Name = "label4";
             label4.Size = new Size(38, 20);
             label4.TabIndex = 19;
@@ -187,7 +177,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(378, 251);
+            label5.Location = new Point(512, 250);
             label5.Name = "label5";
             label5.Size = new Size(70, 20);
             label5.TabIndex = 20;
@@ -196,17 +186,29 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(378, 319);
+            label6.Location = new Point(509, 319);
             label6.Name = "label6";
             label6.Size = new Size(109, 20);
             label6.TabIndex = 21;
             label6.Text = "Czy wykonane?";
             // 
+            // Lista
+            // 
+            Lista.FullRowSelect = true;
+            Lista.Location = new Point(38, 83);
+            Lista.MultiSelect = false;
+            Lista.Name = "Lista";
+            Lista.Size = new Size(377, 403);
+            Lista.TabIndex = 22;
+            Lista.UseCompatibleStateImageBehavior = false;
+            Lista.View = View.Details;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(933, 520);
+            Controls.Add(Lista);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -218,11 +220,10 @@
             Controls.Add(wyjście);
             Controls.Add(wczytaj_plik);
             Controls.Add(edytuj_zadanie);
-            Controls.Add(usuń_zadanie);
+            Controls.Add(usuń_plik);
             Controls.Add(dodaj_zadanie);
-            Controls.Add(lista_poleceń);
+            Controls.Add(lista_zadań);
             Controls.Add(label1);
-            Controls.Add(informacje_do_pliku);
             Controls.Add(stwórz_plik);
             Name = "Form1";
             Text = "Form1";
@@ -233,11 +234,10 @@
         #endregion
 
         private Button stwórz_plik;
-        private ListBox informacje_do_pliku;
         private Label label1;
-        private Label lista_poleceń;
+        private Label lista_zadań;
         private Button dodaj_zadanie;
-        private Button usuń_zadanie;
+        private Button usuń_plik;
         private Button edytuj_zadanie;
         private Button wczytaj_plik;
         private Button wyjście;
@@ -249,5 +249,6 @@
         private Label label4;
         private Label label5;
         private Label label6;
+        private ListView Lista;
     }
 }
