@@ -8,7 +8,7 @@ namespace Projekt
 {
     public partial class Form1 : Form
     {
-        private string filePath = @"C:\Plik\plik.csv";   // Tworzenie pliku
+        private string filePath = @"C:\Users\Lenovo\Desktop\Projekt\Projekt\Plik_z_zadaniami.csv"; // Tworzenie pliku
         public Form1()
         {
             InitializeComponent();
@@ -38,6 +38,7 @@ namespace Projekt
                 Lista.Columns[1].TextAlign = HorizontalAlignment.Center;
                 Lista.Columns[2].TextAlign = HorizontalAlignment.Center;
                 Lista.Columns[3].TextAlign = HorizontalAlignment.Center;
+
             }
 
             else
@@ -99,6 +100,12 @@ namespace Projekt
             File.AppendAllText(filePath, newRow + Environment.NewLine); // Zapisanie do pliku
 
             MessageBox.Show("Zadanie zosta³o dodane do pliku", "Informacja"); // Okienko z informacj¹
+
+            // Czyszczenie TextBoxów po dodaniu zadania
+            Imie.Clear(); 
+            Czynnoœæ.Clear();
+            Czy_wykonane.Checked = false;  
+            Data.Value = DateTime.Now;  
         }
 
         private void usuñ_plik_Click(object sender, EventArgs e)
@@ -125,7 +132,7 @@ namespace Projekt
 
             else // Jeœli nie
             {
-                MessageBox.Show("Plik nie istnieje"); // Okienko z informacj¹
+                MessageBox.Show("Plik nie istnieje", "Informacja"); // Okienko z informacj¹
             }
 
         }
@@ -142,20 +149,40 @@ namespace Projekt
                 Czynnoœæ.Text = item.SubItems[2].Text;
                 Czy_wykonane.Checked = item.SubItems[3].Text == "Tak";
 
-                // Usuniêcie zadania z listy
-                Lista.Items.Remove(item);
+                Lista.Items.Remove(item); // Usuniêcie zadania z listy
+
+                ZapiszDoPliku(); // Zapisanie zmiany do pliku
 
             }
             else
             {
-                MessageBox.Show("Proszê wybraæ zadanie do edycji", "B³¹d");
+                MessageBox.Show("Proszê wybraæ zadanie do edycji", "B³¹d"); // Komunikat
             }
+        }
+
+        private void ZapiszDoPliku()
+        {
+            // Zbieranie danych z Listy
+            StringBuilder sb = new StringBuilder(); // Tworzenie nowego obiekt
+            foreach (ListViewItem item in Lista.Items) // Przechodzenie po wszystkich elementach listy
+            {
+                string[] row = new string[item.SubItems.Count]; // Tworzenie tablicy do przechowania zadania
+                for (int i = 0; i < item.SubItems.Count; i++) // Przechodzenie po wszystkich elementach zadania
+                {
+                    row[i] = item.SubItems[i].Text; // Tekst elementu zadania
+                }
+                string newRow = string.Join(",", row); // £¹czenie danych tablicy w jeden ci¹g
+                sb.AppendLine(newRow); // Dodanie wiersza do sb
+            }
+
+            File.WriteAllText(filePath, sb.ToString()); // Zapisanie do pliku
         }
 
         private void wczytaj_plik_Click(object sender, EventArgs e)
         {
 
         }
+
         private void wyjscie_Click(object sender, EventArgs e)
         {
             DialogResult pytanie_3 = MessageBox.Show("Czy na pewno chcesz wyjœæ?", "Potwierdzenie",
