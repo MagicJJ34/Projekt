@@ -34,7 +34,6 @@
             dodaj_zadanie = new Button();
             usuń_plik = new Button();
             edytuj_zadanie = new Button();
-            wczytaj_plik = new Button();
             wyjście = new Button();
             label3 = new Label();
             Imie = new TextBox();
@@ -49,18 +48,21 @@
             // 
             // stwórz_plik
             // 
-            stwórz_plik.Location = new Point(781, 69);
+            stwórz_plik.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            stwórz_plik.BackColor = Color.SpringGreen;
+            stwórz_plik.Location = new Point(781, 105);
             stwórz_plik.Name = "stwórz_plik";
             stwórz_plik.Size = new Size(140, 62);
             stwórz_plik.TabIndex = 0;
             stwórz_plik.Text = "Stwórz plik";
-            stwórz_plik.UseVisualStyleBackColor = true;
+            stwórz_plik.UseVisualStyleBackColor = false;
             stwórz_plik.Click += stwórz_plik_Click;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label1.AutoSize = true;
-            label1.Location = new Point(314, 21);
+            label1.Location = new Point(381, 23);
             label1.Name = "label1";
             label1.Size = new Size(169, 20);
             label1.TabIndex = 7;
@@ -68,6 +70,7 @@
             // 
             // lista_zadań
             // 
+            lista_zadań.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lista_zadań.AutoSize = true;
             lista_zadań.Location = new Point(38, 58);
             lista_zadań.Name = "lista_zadań";
@@ -77,56 +80,57 @@
             // 
             // dodaj_zadanie
             // 
-            dodaj_zadanie.Location = new Point(781, 137);
+            dodaj_zadanie.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            dodaj_zadanie.BackColor = Color.Yellow;
+            dodaj_zadanie.Location = new Point(781, 177);
             dodaj_zadanie.Name = "dodaj_zadanie";
             dodaj_zadanie.Size = new Size(140, 62);
             dodaj_zadanie.TabIndex = 9;
             dodaj_zadanie.Text = "Dodaj zadanie";
-            dodaj_zadanie.UseVisualStyleBackColor = true;
+            dodaj_zadanie.UseVisualStyleBackColor = false;
             dodaj_zadanie.Click += dodaj_zadanie_Click;
             // 
             // usuń_plik
             // 
-            usuń_plik.Location = new Point(781, 273);
+            usuń_plik.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            usuń_plik.BackColor = Color.Red;
+            usuń_plik.Location = new Point(781, 322);
             usuń_plik.Name = "usuń_plik";
             usuń_plik.Size = new Size(140, 62);
             usuń_plik.TabIndex = 10;
             usuń_plik.Text = "Usuń plik";
-            usuń_plik.UseVisualStyleBackColor = true;
+            usuń_plik.UseVisualStyleBackColor = false;
             usuń_plik.Click += usuń_plik_Click;
             // 
             // edytuj_zadanie
             // 
-            edytuj_zadanie.Location = new Point(781, 205);
+            edytuj_zadanie.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            edytuj_zadanie.BackColor = Color.Cyan;
+            edytuj_zadanie.Location = new Point(781, 250);
             edytuj_zadanie.Name = "edytuj_zadanie";
             edytuj_zadanie.Size = new Size(140, 62);
             edytuj_zadanie.TabIndex = 11;
             edytuj_zadanie.Text = "Edytuj zadanie";
-            edytuj_zadanie.UseVisualStyleBackColor = true;
+            edytuj_zadanie.UseVisualStyleBackColor = false;
             edytuj_zadanie.Click += edytuj_zadanie_Click;
-            // 
-            // wczytaj_plik
-            // 
-            wczytaj_plik.Location = new Point(781, 341);
-            wczytaj_plik.Name = "wczytaj_plik";
-            wczytaj_plik.Size = new Size(140, 62);
-            wczytaj_plik.TabIndex = 12;
-            wczytaj_plik.Text = "Wczytaj plik";
-            wczytaj_plik.UseVisualStyleBackColor = true;
-            wczytaj_plik.Click += wczytaj_plik_Click;
             // 
             // wyjście
             // 
-            wyjście.Location = new Point(781, 409);
+            wyjście.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            wyjście.BackColor = SystemColors.ActiveBorder;
+            wyjście.Font = new Font("Segoe UI", 9F);
+            wyjście.ForeColor = SystemColors.ActiveCaptionText;
+            wyjście.Location = new Point(781, 394);
             wyjście.Name = "wyjście";
             wyjście.Size = new Size(140, 62);
             wyjście.TabIndex = 13;
             wyjście.Text = "Wyjście";
-            wyjście.UseVisualStyleBackColor = true;
+            wyjście.UseVisualStyleBackColor = false;
             wyjście.Click += wyjscie_Click;
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Location = new Point(509, 105);
             label3.Name = "label3";
@@ -136,6 +140,8 @@
             // 
             // Imie
             // 
+            Imie.Anchor = AnchorStyles.Left;
+            Imie.BackColor = SystemColors.GradientActiveCaption;
             Imie.Location = new Point(512, 195);
             Imie.Name = "Imie";
             Imie.Size = new Size(212, 27);
@@ -143,6 +149,8 @@
             // 
             // Czynność
             // 
+            Czynność.Anchor = AnchorStyles.Left;
+            Czynność.BackColor = SystemColors.GradientActiveCaption;
             Czynność.Location = new Point(512, 273);
             Czynność.Name = "Czynność";
             Czynność.Size = new Size(212, 27);
@@ -150,6 +158,7 @@
             // 
             // Czy_wykonane
             // 
+            Czy_wykonane.Anchor = AnchorStyles.Left;
             Czy_wykonane.AutoSize = true;
             Czy_wykonane.Location = new Point(512, 342);
             Czy_wykonane.Name = "Czy_wykonane";
@@ -160,6 +169,8 @@
             // 
             // Data
             // 
+            Data.Anchor = AnchorStyles.Left;
+            Data.CalendarMonthBackground = SystemColors.GradientActiveCaption;
             Data.Location = new Point(512, 128);
             Data.Name = "Data";
             Data.Size = new Size(212, 27);
@@ -167,6 +178,7 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Location = new Point(512, 172);
             label4.Name = "label4";
@@ -176,6 +188,7 @@
             // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Location = new Point(512, 250);
             label5.Name = "label5";
@@ -185,6 +198,7 @@
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Location = new Point(509, 319);
             label6.Name = "label6";
@@ -194,6 +208,8 @@
             // 
             // Lista
             // 
+            Lista.Anchor = AnchorStyles.Left;
+            Lista.BackColor = SystemColors.GradientActiveCaption;
             Lista.FullRowSelect = true;
             Lista.Location = new Point(38, 83);
             Lista.MultiSelect = false;
@@ -207,6 +223,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Azure;
             ClientSize = new Size(933, 520);
             Controls.Add(Lista);
             Controls.Add(label6);
@@ -218,7 +235,6 @@
             Controls.Add(Imie);
             Controls.Add(label3);
             Controls.Add(wyjście);
-            Controls.Add(wczytaj_plik);
             Controls.Add(edytuj_zadanie);
             Controls.Add(usuń_plik);
             Controls.Add(dodaj_zadanie);
@@ -239,7 +255,6 @@
         private Button dodaj_zadanie;
         private Button usuń_plik;
         private Button edytuj_zadanie;
-        private Button wczytaj_plik;
         private Button wyjście;
         private Label label3;
         private TextBox Imie;
