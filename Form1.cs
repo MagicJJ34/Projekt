@@ -83,31 +83,54 @@ namespace Projekt
 
         private void dodaj_zadanie_Click(object sender, EventArgs e)
         {
-            string data = Data.Value.ToString("yyyy-MM-dd"); // Pobranie daty zadania
-            string imie = Imie.Text; // Pobranie osoby do zadania
-            string czynnosc = Czynnoœæ.Text; // Pobranie czynnoœci
-            string czyWykonane = Czy_wykonane.Checked ? "Tak" : "Nie"; // Czy zadanie wykonane?
+            if (File.Exists(filePath))  // Sprawdzenie, czy plik istnieje
+            {
+                bool fileHasHeaders = false; // Sprawdzamy, czy plik nie zawiera nag³ówków
+                using (StreamReader sr = new StreamReader(filePath)) // Odczytujemy plik
+                {
+                    string firstLine = sr.ReadLine(); // Odczytanie pierwszej linii pliku
+                    if (!string.IsNullOrEmpty(firstLine) && firstLine.Contains(",")) // Sprawdzamy, czy linia nie jest pusta i zawiera przecinek
+                    {
+                        fileHasHeaders = true; // Prawda?, Ustawiamy True
+                    }
+                }
 
-            // Tworzymy wiersz
-            ListViewItem item = new ListViewItem(data);
-            item.SubItems.Add(imie);
-            item.SubItems.Add(czynnosc);
-            item.SubItems.Add(czyWykonane);
+                if (!fileHasHeaders)
+                {
+                    // W przeciwnym wypadku dodajemy nag³ówki
+                    string headers = "Data,Imie,Czynnoœæ,CzyWykonane";
+                    File.AppendAllText(filePath, headers + Environment.NewLine);
+                }
 
-            Lista.Items.Add(item); // Dodanie wiersza do Listy
+                string data = Data.Value.ToString("yyyy-MM-dd"); // Pobranie daty zadania
+                string imie = Imie.Text; // Pobranie osoby do zadania
+                string czynnosc = Czynnoœæ.Text; // Pobranie czynnoœci
+                string czyWykonane = Czy_wykonane.Checked ? "Tak" : "Nie"; // Czy zadanie wykonane?
 
-            string newRow = $"{data},{imie},{czynnosc},{czyWykonane}";
-            File.AppendAllText(filePath, newRow + Environment.NewLine); // Zapisanie do pliku
+                // Tworzymy wiersz
+                ListViewItem item = new ListViewItem(data);
+                item.SubItems.Add(imie);
+                item.SubItems.Add(czynnosc);
+                item.SubItems.Add(czyWykonane);
 
-            MessageBox.Show("Zadanie zosta³o dodane do pliku", "Informacja"); // Okienko z informacj¹
+                Lista.Items.Add(item); // Dodanie wiersza do Listy
 
-            // Czyszczenie TextBoxów po dodaniu zadania
-            Imie.Clear(); 
-            Czynnoœæ.Clear();
-            Czy_wykonane.Checked = false;  
-            Data.Value = DateTime.Now;  
+                string newRow = $"{data},{imie},{czynnosc},{czyWykonane}";
+                File.AppendAllText(filePath, newRow + Environment.NewLine); // Zapisanie do pliku
+
+                MessageBox.Show("Zadanie zosta³o dodane do pliku", "Informacja"); // Okienko z informacj¹
+
+                // Czyszczenie TextBoxów po dodaniu zadania
+                Imie.Clear();
+                Czynnoœæ.Clear();
+                Czy_wykonane.Checked = false;
+                Data.Value = DateTime.Now;
+            }
+            else
+            {
+                MessageBox.Show("Plik nie istnieje", "Informacja"); // Okienko z informacj¹
+            }
         }
-
         private void usuñ_plik_Click(object sender, EventArgs e)
         {
             if (File.Exists(filePath)) // Czy plik istnieje? 
@@ -163,7 +186,7 @@ namespace Projekt
         private void ZapiszDoPliku()
         {
             // Zbieranie danych z Listy
-            StringBuilder sb = new StringBuilder(); // Tworzenie nowego obiekt
+            StringBuilder sb = new StringBuilder(); // Tworzenie nowego obiektu
             foreach (ListViewItem item in Lista.Items) // Przechodzenie po wszystkich elementach listy
             {
                 string[] row = new string[item.SubItems.Count]; // Tworzenie tablicy do przechowania zadania
@@ -177,12 +200,6 @@ namespace Projekt
 
             File.WriteAllText(filePath, sb.ToString()); // Zapisanie do pliku
         }
-
-        private void wczytaj_plik_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void wyjscie_Click(object sender, EventArgs e)
         {
             DialogResult pytanie_3 = MessageBox.Show("Czy na pewno chcesz wyjœæ?", "Potwierdzenie",
